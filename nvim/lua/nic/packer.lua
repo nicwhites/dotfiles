@@ -3,17 +3,15 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
 
 	use 'wbthomason/packer.nvim'
+    use 'mfussenegger/nvim-dap'
 	use{ 'nvim-telescope/telescope.nvim', tag = '0.1.1',
 	requires = {{ 'nvim-lua/plenary.nvim'}}}
 
-	use({
-		'ellisonleao/gruvbox.nvim',
-		as = 'gruvbox',
-		config = function() 
-            vim.o.background = "dark"
-			vim.cmd('colorscheme gruvbox')
-		end
-	})
+    use {
+  'lewis6991/gitsigns.nvim',
+  -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
+}
+    use {"catppuccin/nvim", as = "catppuccin"}
 	use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
 	use ('nvim-treesitter/playground')
 	use ('mbbill/undotree')
@@ -40,5 +38,10 @@ return require('packer').startup(function(use)
 			{'rafamadriz/friendly-snippets'},
 		}
 	}
+    use {'romgrk/barbar.nvim', requires = {
+        'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+        'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+    }}
 	use ('github/copilot.vim')
+    use 'nvim-tree/nvim-web-devicons'
 end) 
