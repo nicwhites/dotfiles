@@ -14,3 +14,9 @@ vim.keymap.set("x", "<leader>p" , "\"_dp")
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+
+-- Terminal/window navigation
+vim.keymap.set("t", '<Esc>','<C-\\><C-n>')
+vim.keymap.set("n", '<leader>w', '<C-w>')
+vim.keymap.set("n", '<leader>--', '<C-w>_')
