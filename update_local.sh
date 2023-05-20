@@ -30,8 +30,8 @@ echo $sep
 if [ "$response" == "y" ]; then
     for line in $dir
     do
-        rm -rf ./$line/
-        cp -r ~/.config/$line .
+        rm -rf ~/.config/$line 
+        cp -r ./$line ~/.config/
     done
     echo "Complete"
 else
