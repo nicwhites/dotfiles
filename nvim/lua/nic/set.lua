@@ -6,6 +6,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
+vim.opt.scrolloff=8
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
@@ -15,3 +16,4 @@ vim.opt.wrap = false
 vim.opt.smartindent = true
 vim.opt.updatetime = 50
 vim.g.mapleader = " "
+
