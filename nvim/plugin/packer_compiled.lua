@@ -175,6 +175,12 @@ _G.packer_plugins = {
     path = "/Users/nicholaswhites/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-tmux-navigation"] = {
+    config = { "\27LJ\2\n¡\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\16keybindings\1\0\6\tdown\n<C-j>\16last_active\n<C-\\>\tleft\n<C-h>\nright\n<C-l>\aup\n<C-k>\tnext\14<C-Space>\1\0\1\24disable_when_zoomed\2\nsetup\25nvim-tmux-navigation\frequire\0" },
+    loaded = true,
+    path = "/Users/nicholaswhites/.local/share/nvim/site/pack/packer/start/nvim-tmux-navigation",
+    url = "https://github.com/alexghergh/nvim-tmux-navigation"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/Users/nicholaswhites/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
@@ -222,6 +228,10 @@ time([[Defining packer_plugins]], false)
 time([[Config for goto-preview]], true)
 try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\17goto-preview\frequire\0", "config", "goto-preview")
 time([[Config for goto-preview]], false)
+-- Config for: nvim-tmux-navigation
+time([[Config for nvim-tmux-navigation]], true)
+try_loadstring("\27LJ\2\n¡\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\16keybindings\1\0\6\tdown\n<C-j>\16last_active\n<C-\\>\tleft\n<C-h>\nright\n<C-l>\aup\n<C-k>\tnext\14<C-Space>\1\0\1\24disable_when_zoomed\2\nsetup\25nvim-tmux-navigation\frequire\0", "config", "nvim-tmux-navigation")
+time([[Config for nvim-tmux-navigation]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
