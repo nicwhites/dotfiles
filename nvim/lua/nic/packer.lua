@@ -3,6 +3,10 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
 
+    -- Rust specifig crates
+    use { 'rust-lang/rust.vim', ft= "rust"}
+    use 'simrat39/rust-tools.nvim'
+
     use { 'alexghergh/nvim-tmux-navigation', config = function()
                 require'nvim-tmux-navigation'.setup {
                     disable_when_zoomed = true, -- defaults to false
