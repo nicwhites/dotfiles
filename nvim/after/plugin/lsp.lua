@@ -1,41 +1,32 @@
-local lsp = require("lsp-zero")
+local lsp = require('lsp-zero').preset({})
 
-lsp.preset("recommended")
+lsp.on_attach(function(client, bufnr)
+  lsp.default_keymaps({buffer = bufnr})
+end)
+
+-- When you don't have mason.nvim installed
+-- You'll need to list the servers installed in your system
+lsp.setup_servers({'rust_analyzer', 'bashls'})
 
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'sh',
-  callback = function()
-    vim.lsp.start({
-      name = 'bash-language-server',
-      cmd = { 'bash-language-server', 'start' },
-    })
-  end,
-})
 
-lsp.ensure_installed({
-    'rust_analyzer',
-})
-
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
-require"fidget".setup{}
+-- You need to setup `cmp` after lsp-zero
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
+local cmp_action = require('lsp-zero').cmp_action()
+
+cmp.setup({
+  mapping = {
+    -- `Enter` key to confirm completion
+    ['<CR>'] = cmp.mapping.confirm({select = false}),
+
+    -- Ctrl+Space to trigger completion menu
+    ['<C-Space>'] = cmp.mapping.complete(),
+
+    -- Navigate between snippet placeholder
+    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+  }
 })
-
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
-})
-
 lsp.set_preferences({
     suggest_lsp_servers = false,
     sign_icons = {
@@ -44,6 +35,22 @@ lsp.set_preferences({
         hint = 'H',
         info = 'I'
     }
+})
+
+local ih = require("inlay-hints")
+require("rust-tools").setup({
+    tools = {
+        reload_workspace_from_cargo_toml = true,
+        inlay_hints = {
+            auto = true,
+            other_hints_prefix = " : ",
+        },
+    },
+    server = {
+        on_attach = function(c, b)
+            ih.on_attach(c, b)
+        end,
+    },
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -61,8 +68,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
+    
 lsp.setup()
 
-vim.diagnostic.config({
-    virtual_text = true
-})
+

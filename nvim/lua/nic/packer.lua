@@ -5,8 +5,7 @@ return require('packer').startup(function(use)
 
     -- Rust specifig crates
     use { 'rust-lang/rust.vim', ft= "rust"}
-    use 'simrat39/rust-tools.nvim'
-
+    use 'simrat39/rust-tools.nvim'   
     use { 'alexghergh/nvim-tmux-navigation', config = function()
                 require'nvim-tmux-navigation'.setup {
                     disable_when_zoomed = true, -- defaults to false
@@ -21,6 +20,7 @@ return require('packer').startup(function(use)
                 }
             end
         }
+    use('simrat39/inlay-hints.nvim')
     use 'feline-nvim/feline.nvim'
 	use 'wbthomason/packer.nvim'
     use 'mfussenegger/nvim-dap'
@@ -36,28 +36,26 @@ return require('packer').startup(function(use)
 	use ('nvim-treesitter/playground')
 	use ('mbbill/undotree')
 	use ('tpope/vim-fugitive')
-	use {
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v1.x',
-		requires = {
-			-- LSP Support
-			{'neovim/nvim-lspconfig'},
-			{'williamboman/mason.nvim'},
-			{'williamboman/mason-lspconfig.nvim'},
+    use {
+          'VonHeikemen/lsp-zero.nvim',
+          branch = 'v2.x',
+          requires = {
+            -- LSP Support
+            {'neovim/nvim-lspconfig'},             -- Required
+            {                                      -- Optional
+              'williamboman/mason.nvim',
+              run = function()
+                pcall(vim.cmd, 'MasonUpdate')
+              end,
+            },
+            {'williamboman/mason-lspconfig.nvim'}, -- Optional
 
-			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},
-			{'hrsh7th/cmp-buffer'},
-			{'hrsh7th/cmp-path'},
-			{'saadparwaiz1/cmp_luasnip'},
-			{'hrsh7th/cmp-nvim-lsp'},
-			{'hrsh7th/cmp-nvim-lua'},
-
-			-- Snippets
-			{'L3MON4D3/LuaSnip'},
-			{'rafamadriz/friendly-snippets'},
-		}
-	}
+            -- Autocompletion
+            {'hrsh7th/nvim-cmp'},     -- Required
+            {'hrsh7th/cmp-nvim-lsp'}, -- Required
+            {'L3MON4D3/LuaSnip'},     -- Required
+          }
+        }
     use {
       'rmagatti/goto-preview',
       config = function()
@@ -66,7 +64,6 @@ return require('packer').startup(function(use)
     }
     use {'romgrk/barbar.nvim', requires = {
         'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-        'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     }}
 	use ('github/copilot.vim')
     use 'nvim-tree/nvim-web-devicons'
