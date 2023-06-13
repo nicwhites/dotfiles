@@ -38,7 +38,8 @@ lsp.set_preferences({
 })
 
 local ih = require("inlay-hints")
-require("rust-tools").setup({
+local rt = require("rust-tools")
+rt.setup({
     tools = {
         reload_workspace_from_cargo_toml = true,
         inlay_hints = {
@@ -48,9 +49,18 @@ require("rust-tools").setup({
     },
     server = {
         on_attach = function(c, b)
-            ih.on_attach(c, b)
+       -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })           ih.on_attach(c, b)
         end,
+    },  dap = {
+    adapter = {
+      type = "executable",
+      command = "lldb-vscode",
+      name = "rt_lldb",
     },
+  },
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -67,6 +77,23 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
+require("dapui").setup()
+
+local dap, dapui = require("dap"), require("dapui")
+
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
+
+vim.keymap.set("n", "<Leader>dt", ':DapToggleBreakpoint<CR>')
+vim.keymap.set("n", "<Leader>dx", ':DapTerminate<CR>')
+vim.keymap.set("n", "<Leader>do", ':DapStepOver<CR>')
 
     
 lsp.setup()

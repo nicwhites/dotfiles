@@ -24,6 +24,7 @@ return require('packer').startup(function(use)
     use 'feline-nvim/feline.nvim'
 	use 'wbthomason/packer.nvim'
     use 'mfussenegger/nvim-dap'
+    use 'rcarriga/nvim-dap-ui'
 	use{ 'nvim-telescope/telescope.nvim', tag = '0.1.1',
 	requires = {{ 'nvim-lua/plenary.nvim'}}}
 
