@@ -1,10 +1,5 @@
 
-#!/usr/bin/zsh
-
-# This script assumes you have neovim and tmux downloaded and setup. 
-#
-#
-
+#!/usr/bin/bash
 
 pkg_manager=""
 
