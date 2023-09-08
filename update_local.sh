@@ -33,6 +33,8 @@ if [ "$response" == "y" ]; then
         rm -rf ~/.config/$line 
         cp -r ./$line ~/.config/
     done
+
+    cp -f ./zshrc ~/.zshrc
     echo "Complete"
 else
     echo "Exiting"
