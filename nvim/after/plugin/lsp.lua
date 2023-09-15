@@ -6,7 +6,8 @@ end)
 
 -- When you don't have mason.nvim installed
 -- You'll need to list the servers installed in your system
-lsp.setup_servers({'rust_analyzer', 'bashls'})
+lsp.setup_servers({'rust_analyzer', 'bashls', 'gopls'})
+require('go').setup()
 
 
 
@@ -61,6 +62,15 @@ rt.setup({
       name = "rt_lldb",
     },
   },
+})
+
+local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = "*.go",
+        callback = function()
+        require('go.format').goimport()
+        end,
+       group = format_sync_grp,
 })
 
 lsp.on_attach(function(client, bufnr)
