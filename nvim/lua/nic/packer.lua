@@ -68,7 +68,7 @@ return require('packer').startup(function(use)
     use {'romgrk/barbar.nvim', requires = {
         'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
     }}
-	use ('github/copilot.vim')
+    use 'Exafunction/codeium.vim'
     use 'nvim-tree/nvim-web-devicons'
     use 'j-hui/fidget.nvim'
 end) 
