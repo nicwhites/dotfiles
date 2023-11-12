@@ -27,7 +27,7 @@ return require('packer').startup(function(use)
     use 'ray-x/go.nvim'
     use 'ray-x/guihua.lua' -- recommended if need floating window support
     use 'rcarriga/nvim-dap-ui'
-	use{ 'nvim-telescope/telescope.nvim', tag = '0.1.1',
+	use{ 'nvim-telescope/telescope.nvim',
 	requires = {{ 'nvim-lua/plenary.nvim'}}}
 
     use {
@@ -71,4 +71,11 @@ return require('packer').startup(function(use)
     use 'Exafunction/codeium.vim'
     use 'nvim-tree/nvim-web-devicons'
     use 'j-hui/fidget.nvim'
+    use('jose-elias-alvarez/null-ls.nvim')
+    use('MunifTanjim/prettier.nvim')
+    use ({"ziontee113/color-picker.nvim",
+        config = function()
+            require("color-picker")
+        end,
+    })
 end) 
