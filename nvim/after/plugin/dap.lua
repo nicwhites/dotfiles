@@ -1,31 +1,17 @@
-local dap = require('dap')
-dap.adapters.lldb = {
-  type = 'executable',
-  command = '/usr/bin/lldb-vscode', -- adjust as needed, must be absolute path
-  name = 'lldb'
-}
-dap.configurations.rust = {
-  {
-    -- ... the previous config goes here ...,
-    initCommands = function()
-      -- Find out where to look for the pretty printer Python module
-      local rustc_sysroot = vim.fn.trim(vim.fn.system('rustc --print sysroot'))
+require("dapui").setup()
 
-      local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
-      local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
+local dap, dapui = require("dap"), require("dapui")
 
-      local commands = {}
-      local file = io.open(commands_file, 'r')
-      if file then
-        for line in file:lines() do
-          table.insert(commands, line)
-        end
-        file:close()
-      end
-      table.insert(commands, 1, script_import)
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
 
-      return commands
-    end,
-    -- ...,
-  }
-}
+vim.keymap.set("n", "<Leader>dt", ':DapToggleBreakpoint<CR>')
+vim.keymap.set("n", "<Leader>dx", ':DapTerminate<CR>')
+vim.keymap.set("n", "<Leader>do", ':DapStepOver<CR>')
