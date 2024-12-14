@@ -26,7 +26,8 @@ return require('packer').startup(function(use)
     use 'mfussenegger/nvim-dap'
     use 'ray-x/go.nvim'
     use 'ray-x/guihua.lua' -- recommended if need floating window support
-    use 'rcarriga/nvim-dap-ui'
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
+
 	use{ 'nvim-telescope/telescope.nvim',
 	requires = {{ 'nvim-lua/plenary.nvim'}}}
 
